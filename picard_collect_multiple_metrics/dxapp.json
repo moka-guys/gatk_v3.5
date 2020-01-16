@@ -1,0 +1,72 @@
+{
+  "name": "picard_collect_multiple_metrics",
+  "title": "Picard CollectMultipleMetrics",
+  "summary": "Assess mapped read profiles in term of quality, insert size, and base distribution",
+  "dxapi": "1.0.0",
+  "openSource": true,
+  "version": "1.0.1",
+  "inputSpec": [
+    {
+      "name": "sorted_bam",
+      "label": "Sorted Mappings",
+      "help": "A coordinate-sorted BAM file with the mappings to collect metrics on.",
+      "class": "file",
+      "patterns": ["*.bam"]
+    },
+    {
+      "name": "fasta_index",
+      "label": "Reference FASTA index archive",
+      "help": "A gzipped tarball containing genome.fa, genome.fa.fai, genome.dict.",
+      "class": "file",
+      "patterns": ["*.fasta-index.tar.gz"]
+    },
+    {
+      "name": "extra_options",
+      "label": "Extra command line options",
+      "help": "Extra command line options that will be supplied directly to the Picard execution.",
+      "class": "string",
+      "optional": true,
+      "group": "Advanced"
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "stats",
+      "label": "Stats",
+      "help": "The generated statistics files",
+      "class": "array:file"
+    }
+  ],
+  "runSpec": {
+    "execDepends": [
+      {
+        "name": "openjdk-7-jre-headless"
+      }
+    ],
+    "file": "src/code.sh",
+    "interpreter": "bash"
+  },
+  "authorizedUsers": [
+    "PUBLIC"
+  ],
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem1_ssd1_x4"
+        }
+      }
+    }
+  },
+  "details": {
+    "upstreamUrl": "http://broadinstitute.github.io/picard/",
+    "upstreamVersion": "1.141",
+    "upstreamAuthor": "broadinstitute",
+    "whatsNew": "*1.0.1 change default instance type \n*"
+  },
+  "categories": [
+    "Mappings Manipulation"
+  ],
+  "access": {},
+  "ignoreReuse": false
+}

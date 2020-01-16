@@ -1,0 +1,81 @@
+{
+  "name": "qualimap2",
+  "title": "qualimap2",
+  "summary": "Qualimap is a platform-independent application written in Java and R that provides both a Graphical User Interface (GUI) and a command-line interface to facilitate the quality control of alignment sequencing data.",
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "in",
+      "label": "Input file",
+      "help": "Aligned input file",
+      "class": "file",
+      "patterns": ["*bam"]
+    },
+    {
+      "name": "ingtf",
+      "label": "GTF file",
+      "help": "Compressed transcript GTF file",
+      "class": "file",
+      "patterns": ["*gtf.gz"],
+      "optional": true
+    },
+    {
+      "name": "extra_cmd",
+      "label": "Extra command line",
+      "help": "Qualimap2 extra command line to be executed",
+      "class": "string",
+      "default": ""
+    },
+    {
+      "name": "option",
+      "label": "Option",
+      "help": "Qualimap option to run",
+      "class": "string",
+      "default": "bamqc",
+      "choices": [
+        "bamqc",
+        "rnaseq",
+        "comp-counts"
+      ]
+    },
+    {
+      "name": "output_prefix",
+      "label": "Output prefix",
+      "help": "Prefix name of the output results",
+      "class": "string",
+      "optional": true
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "out",
+      "label": "Output files",
+      "class": "array:file",
+      "optional": true
+    }
+  ],
+  "runSpec": {
+    "execDepends": [
+      {
+        "name": "openjdk-7-jre-headless"
+      }
+    ],
+    "file": "src/code.sh",
+    "interpreter": "bash"
+  },
+  "access": {
+    "network": [
+      "*"
+    ]
+  },
+  "ignoreReuse": false,
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "main": {
+          "instanceType": "mem1_ssd1_x8"
+        }
+      }
+    }
+  }
+}
